@@ -26,3 +26,5 @@ logs
 # worktrees
 .worktrees/
 worktrees/
+
+.pnpm-store/
