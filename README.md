@@ -39,7 +39,7 @@ WatchLog 由两部分组成：
 | `pnpm dev` | 启动 Nuxt 开发环境 |
 | `pnpm test` | 启动 Vitest 交互式测试 |
 | `pnpm test:run` | 一次性运行全部测试 |
-| `pnpm build` | 构建 Nuxt 主应用 |
+| `pnpm build` | 先构建 Widget，再构建 Nuxt 主应用 |
 | `pnpm preview` | 本地预览生产构建 |
 | `pnpm --filter ./packages/widget build` | 单独构建 Widget |
 | `pnpm verify` | 运行测试 + 主应用构建 + Widget 构建 |
@@ -169,7 +169,7 @@ pnpm --filter ./packages/widget build
 ></watch-log-widget>
 ```
 
-详细嵌入说明见 `docs/widget-embed.md`。
+详细嵌入说明见 `docs/widget-embed.md`。主应用构建后会通过 `/widget/watch-log-widget.es.js` 和 `/widget/watch-log-widget.iife.js` 提供嵌入脚本。
 
 如果 Widget 要嵌入其他域名的站点，请在服务端配置 `NUXT_CORS_ALLOWED_ORIGINS`，放行对应博客或本地预览使用的 HTTP origin。
 

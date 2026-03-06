@@ -36,13 +36,13 @@ docker compose up -d --build
 - SQLite 默认路径：`./data/watchlog.sqlite`
 - 在 Docker Compose 中挂载为宿主机 `./data`
 
-## Widget 静态资源
+## Widget 脚本路由
 
-Docker 镜像会把 Widget 构建产物复制到：
-- `/public/widget/watch-log-widget.es.js`
-- `/public/widget/watch-log-widget.iife.js`
+应用构建时会先生成 Widget bundle，并通过以下路由提供：
+- `/widget/watch-log-widget.es.js`
+- `/widget/watch-log-widget.iife.js`
 
-可通过主站静态资源路径直接访问并嵌入博客。
+可直接使用这些地址嵌入博客。
 
 ## 管理接口安全
 

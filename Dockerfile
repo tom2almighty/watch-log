@@ -10,14 +10,12 @@ RUN pnpm install --frozen-lockfile
 
 FROM deps AS build
 COPY . .
-RUN pnpm --filter ./packages/widget build \
-  && mkdir -p public/widget \
-  && cp -r packages/widget/dist/. public/widget/ \
-  && pnpm build
+RUN pnpm build
 
 FROM node:24-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=build /app/.output ./.output
+COPY --from=build /app/packages/widget/dist ./packages/widget/dist
 EXPOSE 3000
 CMD ["node", ".output/server/index.mjs"]

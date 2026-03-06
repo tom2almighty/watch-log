@@ -8,9 +8,9 @@ pnpm --filter ./packages/widget build
 
 输出位于：`packages/widget/dist`
 
-推荐将以下文件部署到你的主站静态目录：
-- `watch-log-widget.es.js`
-- `watch-log-widget.iife.js`
+在 WatchLog 主应用里，执行 `pnpm build` 后会自动通过以下路径提供：
+- `/widget/watch-log-widget.es.js`
+- `/widget/watch-log-widget.iife.js`
 
 ## 2. 基础嵌入
 
