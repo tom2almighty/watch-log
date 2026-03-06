@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+:root {
+  --watchlog-bg: #09090b;
+  --watchlog-panel: rgba(18, 18, 24, 0.78);
+  --watchlog-panel-strong: rgba(30, 30, 38, 0.92);
+  --watchlog-border: rgba(255, 255, 255, 0.08);
+  --watchlog-text: #f4f0e8;
+  --watchlog-muted: rgba(244, 240, 232, 0.68);
+  --watchlog-accent: #c8ff6a;
+  --watchlog-accent-soft: rgba(200, 255, 106, 0.18);
+  --watchlog-highlight: #f97f5f;
+  --watchlog-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
+}
+
+html,
+body,
+#__nuxt {
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(249, 127, 95, 0.18), transparent 28%),
+    radial-gradient(circle at top right, rgba(200, 255, 106, 0.12), transparent 24%),
+    linear-gradient(180deg, #0f1015 0%, #09090b 45%, #050506 100%);
+  color: var(--watchlog-text);
+  font-family: 'Bricolage Grotesque', 'IBM Plex Sans', sans-serif;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.85), transparent);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  mix-blend-mode: soft-light;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.4) 0.7px, transparent 0.7px);
+  background-size: 7px 7px;
+}
+
+.watchlog-serif {
+  font-family: 'Noto Serif SC', 'Source Han Serif SC', serif;
+}
+
+.watchlog-panel {
+  background: var(--watchlog-panel);
+  border: 1px solid var(--watchlog-border);
+  box-shadow: var(--watchlog-shadow);
+  backdrop-filter: blur(24px);
+}
+
+.watchlog-panel-strong {
+  background: var(--watchlog-panel-strong);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: var(--watchlog-shadow);
+  backdrop-filter: blur(20px);
+}
+
+.watchlog-pill {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--watchlog-muted);
+  transition: all 180ms ease;
+}
+
+.watchlog-pill-active,
+.watchlog-pill:hover {
+  border-color: rgba(200, 255, 106, 0.35);
+  background: rgba(200, 255, 106, 0.12);
+  color: var(--watchlog-text);
+}

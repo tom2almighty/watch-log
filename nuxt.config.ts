@@ -1,3 +1,4 @@
+import tailwindcss from '@tailwindcss/vite'
 import { defineNuxtConfig } from 'nuxt/config'
 
 const enableSyncCron = process.env.NUXT_ENABLE_SYNC_CRON === 'true'
@@ -6,6 +7,10 @@ const syncCronExpression = process.env.NUXT_SYNC_CRON_EXPRESSION || '0 */6 * * *
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  css: ['~/assets/css/main.css'],
+  vite: {
+    plugins: [tailwindcss()],
+  },
   nitro: {
     experimental: {
       tasks: true,
