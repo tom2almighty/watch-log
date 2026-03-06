@@ -180,12 +180,3 @@ pnpm --filter ./packages/widget build
 docker compose up -d --build
 ```
 
-## 文档
-
-- 需求说明：`docs/plans/spec.md`
-- 设计说明：`docs/plans/2026-03-06-watchlog-design.md`
-- 实施计划：`docs/plans/2026-03-06-watchlog-implementation.md`
-- 本轮优化设计：`docs/plans/2026-03-06-watchlog-docs-ui-polish-design.md`
-- 本轮优化计划：`docs/plans/2026-03-06-watchlog-docs-ui-polish-implementation.md`
-- Widget 嵌入：`docs/widget-embed.md`
-- 部署说明：`docs/deployment.md`

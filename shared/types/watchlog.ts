@@ -18,7 +18,7 @@ export interface SubjectRecord {
   directors: string[]
   actors: string[]
   coverUrl: string | null
-  doubanUrl: string | null
+  sourceUrl: string | null
   ratingAverage: number | null
   ratingCount: number | null
   pubdates: string[]

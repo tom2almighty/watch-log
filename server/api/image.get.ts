@@ -1,8 +1,4 @@
-const defineEventHandlerCompat =
-  (globalThis as typeof globalThis & {
-    defineEventHandler?: <T>(handler: T) => T
-  }).defineEventHandler ?? ((handler) => handler)
-
+import { markEventHandler } from '../utils/event-handler'
 function createStatusError(statusCode: number, statusMessage: string) {
   const createErrorCompat = (globalThis as typeof globalThis & {
     createError?: (input: { statusCode: number; statusMessage: string }) => Error
@@ -18,7 +14,7 @@ function createStatusError(statusCode: number, statusMessage: string) {
   })
 }
 
-export default defineEventHandlerCompat(async (event) => {
+export default markEventHandler(async (event) => {
   const query = getQuery(event)
   const target = Array.isArray(query.url) ? query.url[0] : query.url
 

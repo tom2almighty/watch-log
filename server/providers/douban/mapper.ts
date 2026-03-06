@@ -61,7 +61,7 @@ function toSubjectRecord(subject: DoubanInterestSubject): SubjectRecord {
     directors: (subject.directors ?? []).map((item) => item.name),
     actors: (subject.actors ?? []).map((item) => item.name),
     coverUrl,
-    doubanUrl: subject.url ?? null,
+    sourceUrl: subject.url ?? null,
     ratingAverage: subject.rating?.value ?? null,
     ratingCount: subject.rating?.count ?? null,
     pubdates: subject.pubdate ?? [],

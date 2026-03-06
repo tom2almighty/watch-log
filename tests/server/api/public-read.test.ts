@@ -40,7 +40,7 @@ describe('public read api helpers', () => {
       directors: ['金性洙'],
       actors: ['黄政民', '郑雨盛'],
       coverUrl: firstCover,
-      doubanUrl: 'https://movie.douban.com/subject/35712804/',
+      sourceUrl: 'https://movie.douban.com/subject/35712804/',
       ratingAverage: 8.8,
       ratingCount: 307074,
       pubdates: ['2023-11-22(韩国)'],
@@ -58,7 +58,7 @@ describe('public read api helpers', () => {
       directors: ['姜文'],
       actors: ['姜文', '葛优'],
       coverUrl: secondCover,
-      doubanUrl: 'https://movie.douban.com/subject/3011091/',
+      sourceUrl: 'https://movie.douban.com/subject/3011091/',
       ratingAverage: 9.0,
       ratingCount: 1000000,
       pubdates: ['2010-12-16(中国大陆)'],
@@ -135,6 +135,7 @@ describe('public read api helpers', () => {
           subjectId: 'douban:subject:3011091',
           title: '让子弹飞',
           status: 'done',
+          sourceUrl: 'https://movie.douban.com/subject/3011091/',
           coverUrl: `${proxyPrefix}${encodeURIComponent(secondCover)}`,
         },
       ],
@@ -143,6 +144,7 @@ describe('public read api helpers', () => {
       subject: {
         id: 'douban:subject:35712804',
         title: '首尔之春',
+        sourceUrl: 'https://movie.douban.com/subject/35712804/',
         coverUrl: `${proxyPrefix}${encodeURIComponent(firstCover)}`,
       },
       watchLogs: [

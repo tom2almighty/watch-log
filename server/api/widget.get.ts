@@ -1,13 +1,9 @@
+import { markEventHandler } from '../utils/event-handler'
 import { IMAGE_PROXY_MODES } from '../../shared/constants/watchlog'
 import type { ImageProxyMode, WatchStatus } from '../../shared/types/watchlog'
 import { createDatabaseClient } from '../database/client'
 import { applyImageProxyToItems, type PublicImageProxyOptions } from '../services/images/apply-image-proxy'
 import { createRecordsQueryService } from '../services/query/records-query'
-
-const defineEventHandlerCompat =
-  (globalThis as typeof globalThis & {
-    defineEventHandler?: <T>(handler: T) => T
-  }).defineEventHandler ?? ((handler) => handler)
 
 interface WidgetFeedItem {
   subjectId: string
@@ -61,7 +57,7 @@ export async function getWidgetResponse(
   }
 }
 
-export default defineEventHandlerCompat(async (event) => {
+export default markEventHandler(async (event) => {
   const query = getQuery(event)
   const runtimeConfig = useRuntimeConfig(event)
   const queryService = createRecordsQueryService(createDatabaseClient(runtimeConfig.dbPath))

@@ -1,13 +1,9 @@
+import { markEventHandler } from '../../utils/event-handler'
 import { IMAGE_PROXY_MODES } from '../../../shared/constants/watchlog'
 import type { ImageProxyMode, SubjectRecord, WatchLogRecord } from '../../../shared/types/watchlog'
 import { createDatabaseClient } from '../../database/client'
 import { applyImageProxyToItem, type PublicImageProxyOptions } from '../../services/images/apply-image-proxy'
 import { createRecordsQueryService } from '../../services/query/records-query'
-
-const defineEventHandlerCompat =
-  (globalThis as typeof globalThis & {
-    defineEventHandler?: <T>(handler: T) => T
-  }).defineEventHandler ?? ((handler) => handler)
 
 interface RecordDetailResponse {
   subject: SubjectRecord
@@ -43,7 +39,7 @@ export async function getRecordByIdResponse(
   }
 }
 
-export default defineEventHandlerCompat(async (event) => {
+export default markEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig(event)
   const queryService = createRecordsQueryService(createDatabaseClient(runtimeConfig.dbPath))
   return getRecordByIdResponse(getRouterParam(event, 'id') || '', {

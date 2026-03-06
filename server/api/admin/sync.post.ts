@@ -1,3 +1,4 @@
+import { markEventHandler } from '../../utils/event-handler'
 import { createDatabaseClient } from '../../database/client'
 import { createSubjectsRepository } from '../../database/repositories/subjects'
 import { createSyncRunsRepository } from '../../database/repositories/sync-runs'
@@ -9,11 +10,6 @@ import { createWatchLogSyncService } from '../../services/sync/watchlog-sync'
 import { assertAdminToken, requireAdminToken } from '../../utils/auth'
 import type { WatchStatus } from '../../../shared/types/watchlog'
 import type { ProviderFetchOptions } from '../../providers/types'
-
-const defineEventHandlerCompat =
-  (globalThis as typeof globalThis & {
-    defineEventHandler?: <T>(handler: T) => T
-  }).defineEventHandler ?? ((handler) => handler)
 
 const readBodyCompat =
   (globalThis as typeof globalThis & {
@@ -70,7 +66,7 @@ export async function executeAdminSync(body: AdminSyncBody, options: ExecuteAdmi
   })
 }
 
-export default defineEventHandlerCompat(async (event) => {
+export default markEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig(event)
   requireAdminToken(event, runtimeConfig.adminToken)
 

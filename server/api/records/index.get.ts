@@ -1,3 +1,4 @@
+import { markEventHandler } from '../../utils/event-handler'
 import { IMAGE_PROXY_MODES } from '../../../shared/constants/watchlog'
 import type { ImageProxyMode, WatchStatus } from '../../../shared/types/watchlog'
 import { createDatabaseClient } from '../../database/client'
@@ -6,11 +7,6 @@ import {
   applyImageProxyToItems,
   type PublicImageProxyOptions,
 } from '../../services/images/apply-image-proxy'
-
-const defineEventHandlerCompat =
-  (globalThis as typeof globalThis & {
-    defineEventHandler?: <T>(handler: T) => T
-  }).defineEventHandler ?? ((handler) => handler)
 
 interface RecordListItem {
   logId: string
@@ -85,7 +81,7 @@ export async function getRecordsResponse(
   }
 }
 
-export default defineEventHandlerCompat(async (event) => {
+export default markEventHandler(async (event) => {
   const query = getQuery(event)
   const runtimeConfig = useRuntimeConfig(event)
   const queryService = createRecordsQueryService(createDatabaseClient(runtimeConfig.dbPath))

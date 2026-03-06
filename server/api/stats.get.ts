@@ -1,10 +1,6 @@
+import { markEventHandler } from '../utils/event-handler'
 import { createDatabaseClient } from '../database/client'
 import { createRecordsQueryService } from '../services/query/records-query'
-
-const defineEventHandlerCompat =
-  (globalThis as typeof globalThis & {
-    defineEventHandler?: <T>(handler: T) => T
-  }).defineEventHandler ?? ((handler) => handler)
 
 export async function getStatsResponse(options: {
   queryService: {
@@ -14,7 +10,7 @@ export async function getStatsResponse(options: {
   return options.queryService.getStats()
 }
 
-export default defineEventHandlerCompat(async (event) => {
+export default markEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig(event)
   const queryService = createRecordsQueryService(createDatabaseClient(runtimeConfig.dbPath))
   return getStatsResponse({ queryService })

@@ -14,7 +14,7 @@ const schemaStatements = [
       directors TEXT NOT NULL,
       actors TEXT NOT NULL,
       cover_url TEXT,
-      douban_url TEXT,
+      source_url TEXT,
       rating_average REAL,
       rating_count INTEGER,
       pubdates TEXT NOT NULL,

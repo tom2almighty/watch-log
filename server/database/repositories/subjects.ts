@@ -13,7 +13,7 @@ interface SubjectRow {
   directors: string
   actors: string
   cover_url: string | null
-  douban_url: string | null
+  source_url: string | null
   rating_average: number | null
   rating_count: number | null
   pubdates: string
@@ -32,7 +32,7 @@ function toSubjectRecord(row: SubjectRow): SubjectRecord {
     directors: JSON.parse(row.directors),
     actors: JSON.parse(row.actors),
     coverUrl: row.cover_url,
-    doubanUrl: row.douban_url,
+    sourceUrl: row.source_url,
     ratingAverage: row.rating_average,
     ratingCount: row.rating_count,
     pubdates: JSON.parse(row.pubdates),
@@ -43,11 +43,11 @@ export function createSubjectsRepository(database: DatabaseClient) {
   const upsertStatement = database.prepare(`
     INSERT INTO subjects (
       id, source, source_subject_id, title, original_title, year, subtype,
-      genres, directors, actors, cover_url, douban_url, rating_average,
+      genres, directors, actors, cover_url, source_url, rating_average,
       rating_count, pubdates, updated_at
     ) VALUES (
       @id, @source, @sourceSubjectId, @title, @originalTitle, @year, @subtype,
-      @genres, @directors, @actors, @coverUrl, @doubanUrl, @ratingAverage,
+      @genres, @directors, @actors, @coverUrl, @sourceUrl, @ratingAverage,
       @ratingCount, @pubdates, CURRENT_TIMESTAMP
     )
     ON CONFLICT(id) DO UPDATE SET
@@ -61,7 +61,7 @@ export function createSubjectsRepository(database: DatabaseClient) {
       directors = excluded.directors,
       actors = excluded.actors,
       cover_url = excluded.cover_url,
-      douban_url = excluded.douban_url,
+      source_url = excluded.source_url,
       rating_average = excluded.rating_average,
       rating_count = excluded.rating_count,
       pubdates = excluded.pubdates,

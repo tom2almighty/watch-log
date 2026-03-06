@@ -1,5 +1,5 @@
 import type { DatabaseClient } from '../../database/client'
-import type { SubjectRecord, WatchLogRecord, WatchStatus } from '../../../shared/types/watchlog'
+import type { SubjectRecord, WatchLogRecord, WatchStatus, WatchSource } from '../../../shared/types/watchlog'
 
 interface SubjectRow {
   id: string
@@ -13,7 +13,7 @@ interface SubjectRow {
   directors: string
   actors: string
   cover_url: string | null
-  douban_url: string | null
+  source_url: string | null
   rating_average: number | null
   rating_count: number | null
   pubdates: string
@@ -35,11 +35,13 @@ interface WatchLogRow {
 
 interface RecordListItem {
   logId: string
+  source: WatchSource
   subjectId: string
   title: string
   year: string | null
   subtype: string | null
   coverUrl: string | null
+  sourceUrl: string | null
   status: WatchStatus
   rating: number | null
   watchedAt: string | null
@@ -66,7 +68,7 @@ function toSubjectRecord(row: SubjectRow): SubjectRecord {
     directors: JSON.parse(row.directors),
     actors: JSON.parse(row.actors),
     coverUrl: row.cover_url,
-    doubanUrl: row.douban_url,
+    sourceUrl: row.source_url,
     ratingAverage: row.rating_average,
     ratingCount: row.rating_count,
     pubdates: JSON.parse(row.pubdates),
@@ -130,10 +132,12 @@ export function createRecordsQueryService(database: DatabaseClient) {
                    wl.status,
                    wl.rating,
                    wl.watched_at,
+                   s.source,
                    s.title,
                    s.year,
                    s.subtype,
-                   s.cover_url
+                   s.cover_url,
+                   s.source_url
             FROM watch_logs wl
             INNER JOIN subjects s ON s.id = wl.subject_id
             WHERE ${where.sql}
@@ -144,10 +148,12 @@ export function createRecordsQueryService(database: DatabaseClient) {
         .all(...where.values, limit, offset) as Array<{
         log_id: string
         subject_id: string
+        source: WatchSource
         title: string
         year: string | null
         subtype: string | null
         cover_url: string | null
+        source_url: string | null
         status: WatchStatus
         rating: number | null
         watched_at: string | null
@@ -166,11 +172,13 @@ export function createRecordsQueryService(database: DatabaseClient) {
 
       const items: RecordListItem[] = rows.map((row) => ({
         logId: row.log_id,
+        source: row.source,
         subjectId: row.subject_id,
         title: row.title,
         year: row.year,
         subtype: row.subtype,
         coverUrl: row.cover_url,
+        sourceUrl: row.source_url,
         status: row.status,
         rating: row.rating,
         watchedAt: row.watched_at,

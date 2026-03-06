@@ -34,7 +34,7 @@ describe('sqlite repositories', () => {
       directors: ['金性洙'],
       actors: ['黄政民', '郑雨盛'],
       coverUrl: 'https://img2.doubanio.com/view/photo/public/example.jpg',
-      doubanUrl: 'https://movie.douban.com/subject/35712804/',
+      sourceUrl: 'https://movie.douban.com/subject/35712804/',
       ratingAverage: 8.8,
       ratingCount: 307074,
       pubdates: ['2023-11-22(韩国)'],
@@ -63,7 +63,10 @@ describe('sqlite repositories', () => {
       lastError: null,
     })
 
-    expect(subjects.getById('subject_1')?.title).toBe('首尔之春')
+    expect(subjects.getById('subject_1')).toMatchObject({
+      title: '首尔之春',
+      sourceUrl: 'https://movie.douban.com/subject/35712804/',
+    })
     expect(watchLogs.listBySubjectId('subject_1')).toHaveLength(1)
     expect(syncState.get('douban', 'done')?.nextStart).toBe(51)
   })
@@ -86,7 +89,7 @@ describe('sqlite repositories', () => {
       directors: ['金性洙'],
       actors: ['黄政民'],
       coverUrl: null,
-      doubanUrl: 'https://movie.douban.com/subject/35712804/',
+      sourceUrl: 'https://movie.douban.com/subject/35712804/',
       ratingAverage: 8.8,
       ratingCount: 307074,
       pubdates: ['2023-11-22(韩国)'],
@@ -104,7 +107,7 @@ describe('sqlite repositories', () => {
       directors: ['金性洙'],
       actors: ['黄政民', '郑雨盛'],
       coverUrl: null,
-      doubanUrl: 'https://movie.douban.com/subject/35712804/',
+      sourceUrl: 'https://movie.douban.com/subject/35712804/',
       ratingAverage: 9.1,
       ratingCount: 307075,
       pubdates: ['2023-11-22(韩国)'],
@@ -114,5 +117,6 @@ describe('sqlite repositories', () => {
     expect(subject?.title).toBe('首尔之春（导演剪辑版）')
     expect(subject?.genres).toEqual(['剧情', '历史'])
     expect(subject?.ratingAverage).toBe(9.1)
+    expect(subject?.sourceUrl).toBe('https://movie.douban.com/subject/35712804/')
   })
 })

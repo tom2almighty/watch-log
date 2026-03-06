@@ -1,13 +1,9 @@
+import { markEventHandler } from '../../utils/event-handler'
 import { createDatabaseClient } from '../../database/client'
 import { createSyncRunsRepository } from '../../database/repositories/sync-runs'
 import { createSyncStateRepository } from '../../database/repositories/sync-state'
 import { createWatchLogSyncService } from '../../services/sync/watchlog-sync'
 import { assertAdminToken, requireAdminToken } from '../../utils/auth'
-
-const defineEventHandlerCompat =
-  (globalThis as typeof globalThis & {
-    defineEventHandler?: <T>(handler: T) => T
-  }).defineEventHandler ?? ((handler) => handler)
 
 interface GetAdminSyncStatusOptions {
   providedToken?: string | null
@@ -43,7 +39,7 @@ export async function getAdminSyncStatus(options: GetAdminSyncStatusOptions) {
   return options.syncService.getSyncStatus()
 }
 
-export default defineEventHandlerCompat(async (event) => {
+export default markEventHandler(async (event) => {
   const runtimeConfig = useRuntimeConfig(event)
   requireAdminToken(event, runtimeConfig.adminToken)
 

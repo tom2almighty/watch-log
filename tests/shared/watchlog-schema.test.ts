@@ -30,7 +30,7 @@ describe('watchlog shared schema', () => {
       directors: ['金性洙'],
       actors: ['黄政民', '郑雨盛'],
       coverUrl: 'https://img2.doubanio.com/example.jpg',
-      doubanUrl: 'https://movie.douban.com/subject/35712804/',
+      sourceUrl: 'https://movie.douban.com/subject/35712804/',
       ratingAverage: 8.8,
       ratingCount: 307074,
       pubdates: ['2023-11-22(韩国)'],
