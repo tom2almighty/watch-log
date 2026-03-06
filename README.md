@@ -65,6 +65,7 @@ WatchLog 由两部分组成：
 | --- | --- | --- |
 | `NUXT_ADMIN_TOKEN` | 空 | 保护 `/api/admin/*` 的管理令牌，生产环境必须设置 |
 | `NUXT_DB_PATH` | `./data/watchlog.sqlite` | SQLite 数据库文件路径 |
+| `NUXT_CORS_ALLOWED_ORIGINS` | 空 | Widget 静态资源与 `/api/widget`、`/api/image` 的跨域白名单，逗号分隔 |
 | `NUXT_PUBLIC_APP_NAME` | `watchlog` | 公开应用英文名 |
 | `NUXT_PUBLIC_APP_TITLE` | `观迹` | 公开应用中文名 |
 
@@ -169,6 +170,8 @@ pnpm --filter ./packages/widget build
 ```
 
 详细嵌入说明见 `docs/widget-embed.md`。
+
+如果 Widget 要嵌入其他域名的站点，请在服务端配置 `NUXT_CORS_ALLOWED_ORIGINS`，放行对应博客或本地预览使用的 HTTP origin。
 
 ## Docker 部署
 

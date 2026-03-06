@@ -98,3 +98,19 @@ https://images.weserv.nl/?url=https%3A%2F%2Fimg2.doubanio.com%2Fview%2Fphoto%2Fm
 ```
 https://your-watchlog-site.example.com/api/image?url=...
 ```
+
+## 6. 跨域白名单
+
+如果你把 Widget 嵌入到其他域名的博客或本地预览页，WatchLog 服务端需要放行对应来源：
+
+```bash
+NUXT_CORS_ALLOWED_ORIGINS=https://blog.example.com,http://localhost:3000
+```
+
+白名单会同时覆盖：
+
+- `watch-log-widget.es.js` / `watch-log-widget.iife.js`
+- `/api/widget`
+- `/api/image`
+
+请使用 HTTP 本地地址预览；直接用 `file://` 打开 HTML 时，浏览器通常会发送 `Origin: null`，默认不会在白名单中通过。

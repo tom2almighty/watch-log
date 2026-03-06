@@ -51,3 +51,23 @@ Docker 镜像会把 Widget 构建产物复制到：
 - `GET /api/admin/sync-status`
 
 请不要在公开页面中暴露 `ADMIN_TOKEN`。
+
+## Widget 跨域白名单
+
+如果 Widget 需要被其他域名的博客、站点或本地 HTTP 预览页加载，请配置：
+
+```bash
+NUXT_CORS_ALLOWED_ORIGINS=https://blog.example.com,http://localhost:3000
+```
+
+当前白名单会作用于：
+
+- `/widget/**`
+- `/api/widget`
+- `/api/image`
+
+说明：
+
+- 只对白名单中的 `Origin` 返回 `Access-Control-Allow-Origin`
+- 默认不放行 `file://` 对应的 `Origin: null`
+- 本地预览请使用 HTTP 地址，而不是直接双击打开 `index.html`

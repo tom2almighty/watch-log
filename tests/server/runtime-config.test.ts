@@ -12,6 +12,7 @@ describe('runtime config', () => {
       doubanReferer: expect.any(String),
       adminToken: '',
       dbPath: './data/watchlog.sqlite',
+      corsAllowedOrigins: '',
       enableSyncCron: false,
       syncCronExpression: '0 */6 * * *',
       imageProxyMode: 'relay',

@@ -31,6 +31,7 @@ export default defineNuxtConfig({
     doubanAcceptLanguage: 'zh-CN,zh;q=0.9,en;q=0.8',
     adminToken: '',
     dbPath: './data/watchlog.sqlite',
+    corsAllowedOrigins: '',
     enableSyncCron: false,
     syncCronExpression: '0 */6 * * *',
     imageProxyMode: 'relay',
