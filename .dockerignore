@@ -1,0 +1,15 @@
+.git
+.github
+.nuxt
+.output
+.pnpm-store
+.worktrees
+node_modules
+packages/widget/node_modules
+data
+.env
+.env.*
+docker-compose.yml
+README.md
+docs
+tests
