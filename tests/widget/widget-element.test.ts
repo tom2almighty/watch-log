@@ -33,5 +33,7 @@ describe('watchlog widget element', () => {
 
     expect(fetchFeed).toHaveBeenCalled()
     expect(element.shadowRoot?.textContent).toContain('首尔之春')
+    expect(element.shadowRoot?.querySelector('.widget-list-compact')).toBeTruthy()
+    expect(element.shadowRoot?.querySelector('.widget-card-compact')).toBeTruthy()
   })
 })

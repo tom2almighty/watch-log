@@ -46,7 +46,7 @@ export function createWatchLogWidgetElement(deps: WidgetDependencies = {}) {
         .map((item) => {
           const coverUrl = resolveWidgetCoverUrl(item.coverUrl, proxyMode, proxyPrefix)
           return `
-            <article class="widget-card">
+            <article class="widget-card widget-card-compact">
               ${coverUrl ? `<img src="${coverUrl}" alt="${item.title}" />` : '<div class="widget-placeholder"></div>'}
               <div class="widget-meta">
                 <span class="widget-status">${item.status}</span>
@@ -61,7 +61,7 @@ export function createWatchLogWidgetElement(deps: WidgetDependencies = {}) {
 
       this.#shadow.innerHTML = this.renderShell(
         payload.items.length
-          ? `<div class="widget-list ${layout}">${cards}</div>`
+          ? `<div class="widget-list widget-list-compact ${layout}">${cards}</div>`
           : '<div class="widget-empty">暂时还没有同步到可展示的观影记录。</div>',
       )
     }

@@ -49,6 +49,8 @@ describe('watchlog ui smoke', () => {
     })
 
     expect(populated.text()).toContain('首尔之春')
+    expect(populated.find('.watchlog-record-grid-compact').exists()).toBe(true)
+    expect(populated.find('.watchlog-record-card-compact').exists()).toBe(true)
     expect(empty.text()).toContain('还没有可展示的记录')
   })
 })

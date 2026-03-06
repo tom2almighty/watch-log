@@ -8,20 +8,20 @@
     radial-gradient(circle at top left, rgba(200, 255, 106, 0.14), transparent 35%),
     linear-gradient(180deg, rgba(17, 17, 22, 0.98), rgba(9, 9, 12, 0.98));
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
+  border-radius: 24px;
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.38);
   overflow: hidden;
 }
 
 .widget-header {
-  padding: 20px 20px 14px;
+  padding: 16px 16px 12px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .widget-header small {
   display: block;
-  margin-bottom: 10px;
-  letter-spacing: 0.34em;
+  margin-bottom: 8px;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.46);
   font-size: 10px;
@@ -29,68 +29,69 @@
 
 .widget-header h2 {
   margin: 0;
-  font-size: 24px;
+  font-size: 20px;
   font-family: 'Noto Serif SC', serif;
 }
 
 .widget-list {
   display: grid;
-  gap: 12px;
-  padding: 16px;
+  gap: 10px;
+  padding: 12px;
 }
 
-.widget-list.grid {
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+.widget-list.grid,
+.widget-list.widget-list-compact.grid {
+  grid-template-columns: repeat(auto-fit, minmax(156px, 1fr));
 }
 
 .widget-card {
   display: grid;
-  gap: 12px;
-  grid-template-columns: 72px 1fr;
-  padding: 14px;
-  border-radius: 22px;
+  gap: 10px;
+  grid-template-columns: 60px 1fr;
+  padding: 12px;
+  border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.04);
 }
 
 .widget-card img,
 .widget-card .widget-placeholder {
-  width: 72px;
-  height: 96px;
-  border-radius: 16px;
+  width: 60px;
+  height: 82px;
+  border-radius: 12px;
   object-fit: cover;
   background: rgba(255, 255, 255, 0.06);
 }
 
 .widget-meta h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.25;
   font-family: 'Noto Serif SC', serif;
 }
 
 .widget-meta p {
-  margin: 8px 0 0;
+  margin: 6px 0 0;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 13px;
-  line-height: 1.55;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 .widget-status {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 6px 10px;
+  gap: 6px;
+  padding: 4px 8px;
   border-radius: 999px;
-  font-size: 11px;
-  letter-spacing: 0.16em;
+  font-size: 10px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
   background: rgba(200, 255, 106, 0.12);
 }
 
 .widget-empty {
-  padding: 26px 20px 28px;
+  padding: 22px 16px 24px;
   color: rgba(255, 255, 255, 0.62);
-  font-size: 13px;
+  font-size: 12px;
 }
