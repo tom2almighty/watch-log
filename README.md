@@ -1,75 +1,25 @@
-# Nuxt Minimal Starter
+# 观迹 | WatchLog
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+一个自部署、轻量、可扩展的个人观影记录项目。
 
-## Setup
+## 当前状态
 
-Make sure to install dependencies:
+- 使用 Nuxt 4 作为主应用框架
+- 计划提供 SPA 主界面与可嵌入的 Web Component Widget
+- 数据源首期接入豆瓣，后续保留 TMDB 扩展能力
+- 存储方案使用 SQLite
+
+## 开发命令
 
 ```bash
-# npm
-npm install
-
-# pnpm
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
 pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
 pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
 pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## 文档
+
+- 需求说明：`docs/plans/spec.md`
+- 设计说明：`docs/plans/2026-03-06-watchlog-design.md`
+- 实施计划：`docs/plans/2026-03-06-watchlog-implementation.md`
