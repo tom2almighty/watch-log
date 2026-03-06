@@ -1,5 +1,5 @@
 import type { DatabaseClient } from '../client'
-import type { SyncRunRecord, SyncRunStatus, WatchSource } from '../../utils/types'
+import type { SyncRunRecord, SyncRunStatus, WatchSource } from '../../../shared/types/watchlog'
 
 interface SyncRunRow {
   id: string

@@ -1,6 +1,6 @@
 import { createDatabaseClient } from '../../database/client'
 import { createRecordsQueryService } from '../../services/query/records-query'
-import type { WatchStatus } from '../../utils/types'
+import type { WatchStatus } from '../../../shared/types/watchlog'
 
 const defineEventHandlerCompat =
   (globalThis as typeof globalThis & {

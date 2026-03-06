@@ -1,4 +1,4 @@
-import type { ImageProxyMode } from '../../utils/types'
+import type { ImageProxyMode } from '../../../shared/types/watchlog'
 
 interface ResolveImageUrlOptions {
   url: string | null | undefined

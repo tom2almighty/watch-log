@@ -1,4 +1,4 @@
-import type { SubjectRecord, WatchLogRecord, WatchStatus } from '../utils/types'
+import type { SubjectRecord, WatchLogRecord, WatchStatus } from '../../shared/types/watchlog'
 
 export interface ProviderPageItem {
   subject: SubjectRecord

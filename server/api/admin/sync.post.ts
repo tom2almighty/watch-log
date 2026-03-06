@@ -7,7 +7,8 @@ import { fetchDoubanInterestsPage } from '../../providers/douban/client'
 import { mapDoubanInterestsPage } from '../../providers/douban/mapper'
 import { createWatchLogSyncService } from '../../services/sync/watchlog-sync'
 import { assertAdminToken, requireAdminToken } from '../../utils/auth'
-import type { ProviderFetchOptions, WatchStatus } from '../../utils/types'
+import type { WatchStatus } from '../../../shared/types/watchlog'
+import type { ProviderFetchOptions } from '../../providers/types'
 
 const defineEventHandlerCompat =
   (globalThis as typeof globalThis & {

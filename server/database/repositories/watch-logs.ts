@@ -1,5 +1,5 @@
 import type { DatabaseClient } from '../client'
-import type { WatchLogRecord } from '../../utils/types'
+import type { WatchLogRecord } from '../../../shared/types/watchlog'
 
 interface WatchLogRow {
   id: string

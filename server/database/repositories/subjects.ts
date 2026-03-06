@@ -1,5 +1,5 @@
 import type { DatabaseClient } from '../client'
-import type { SubjectRecord } from '../../utils/types'
+import type { SubjectRecord } from '../../../shared/types/watchlog'
 
 interface SubjectRow {
   id: string

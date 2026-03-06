@@ -1,5 +1,5 @@
 import type { DatabaseClient } from '../client'
-import type { WatchSource, WatchStatus } from '../../utils/types'
+import type { WatchSource, WatchStatus } from '../../../shared/types/watchlog'
 
 export interface SyncStateRecord {
   source: WatchSource

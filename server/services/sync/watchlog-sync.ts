@@ -1,7 +1,7 @@
 import { MAX_DOUBAN_PAGE_SIZE } from '../../providers/douban/client'
 import type { ProviderFetchOptions, ProviderPage } from '../../providers/types'
 import { WATCH_STATUSES } from '../../../shared/constants/watchlog'
-import type { SyncRunRecord, WatchStatus } from '../../utils/types'
+import type { SyncRunRecord, WatchStatus } from '../../../shared/types/watchlog'
 
 interface SyncStateRecord {
   source: 'douban' | 'tmdb'

@@ -1,5 +1,5 @@
 import type { ProviderPage } from '../types'
-import type { SubjectRecord, WatchLogRecord, WatchStatus } from '../../utils/types'
+import type { SubjectRecord, WatchLogRecord, WatchStatus } from '../../../shared/types/watchlog'
 
 interface DoubanNamedPerson {
   name: string

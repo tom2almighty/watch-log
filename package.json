@@ -9,7 +9,8 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "verify": "pnpm vitest && pnpm build && pnpm --filter ./packages/widget build"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.1",
