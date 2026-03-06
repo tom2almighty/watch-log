@@ -17,7 +17,9 @@ export function resolveImageUrl(options: ResolveImageUrlOptions) {
   }
 
   if (options.mode === 'prefix') {
-    return `${options.prefix || ''}${encodeURIComponent(options.url)}`
+    return options.prefix
+      ? `${options.prefix}${encodeURIComponent(options.url)}`
+      : options.url
   }
 
   return `${options.relayPath || '/api/image'}?url=${encodeURIComponent(options.url)}`

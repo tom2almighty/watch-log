@@ -31,8 +31,8 @@ pnpm --filter ./packages/widget build
 - `status`：筛选状态，可选 `done`、`doing`、`mark`
 - `limit`：最多显示多少条
 - `layout`：`grid` 或 `list`
-- `proxy-mode`：`direct`、`prefix`、`relay`
-- `proxy-prefix`：`prefix` 模式下使用的图片前缀代理
+- `proxy-mode`：`direct`、`prefix`、`relay`；不填时沿用 WatchLog 服务端默认模式
+- `proxy-prefix`：`prefix` 模式下使用的图片前缀代理；只填写前缀即可
 
 ## 4. Hugo / Astro 示例
 
@@ -54,3 +54,47 @@ pnpm --filter ./packages/widget build
 
 - 主站与 Widget 同源时，推荐 `proxy-mode="relay"`
 - 静态博客想复用第三方前缀代理时，使用 `proxy-mode="prefix"` 并设置 `proxy-prefix`
+
+### prefix 模式怎么填
+
+在 `prefix` 模式下，你只需要填写代理前缀，不需要把图片地址手工拼进去。WatchLog 会自动把原始封面地址编码后追加到前缀后面。
+
+```html
+<watch-log-widget
+  endpoint="https://your-watchlog-site.example.com/api/widget"
+  status="done"
+  limit="4"
+  proxy-mode="prefix"
+  proxy-prefix="https://images.weserv.nl/?url="
+></watch-log-widget>
+```
+
+例如原图是：
+
+```
+https://img2.doubanio.com/view/photo/m_ratio_poster/public/p2905141611.jpg
+```
+
+最终生成的图片地址会类似：
+
+```
+https://images.weserv.nl/?url=https%3A%2F%2Fimg2.doubanio.com%2Fview%2Fphoto%2Fm_ratio_poster%2Fpublic%2Fp2905141611.jpg
+```
+
+另一个例子：
+
+```html
+<watch-log-widget
+  endpoint="https://your-watchlog-site.example.com/api/widget"
+  proxy-mode="prefix"
+  proxy-prefix="https://imageproxy.example.com/fetch?url="
+></watch-log-widget>
+```
+
+### relay 跨域说明
+
+如果 Widget 被嵌入在别的域名博客中，`relay` 模式不会去请求博客自己的 `/api/image`。它会根据 `endpoint` 自动请求 WatchLog 站点自己的图片中继地址，例如：
+
+```
+https://your-watchlog-site.example.com/api/image?url=...
+```

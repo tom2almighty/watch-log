@@ -1,5 +1,5 @@
 import widgetStyles from './styles.css?inline'
-import { fetchWidgetFeed, resolveWidgetCoverUrl } from './api'
+import { fetchWidgetFeed } from './api'
 
 interface WidgetDependencies {
   fetchFeed?: typeof fetchWidgetFeed
@@ -38,16 +38,15 @@ export function createWatchLogWidgetElement(deps: WidgetDependencies = {}) {
       const status = this.getAttribute('status') || undefined
       const limit = this.getAttribute('limit') ? Number(this.getAttribute('limit')) : undefined
       const layout = this.getAttribute('layout') || 'grid'
-      const proxyMode = (this.getAttribute('proxy-mode') || 'direct') as 'direct' | 'prefix' | 'relay'
+      const proxyMode = (this.getAttribute('proxy-mode') || undefined) as 'direct' | 'prefix' | 'relay' | undefined
       const proxyPrefix = this.getAttribute('proxy-prefix')
 
-      const payload = await fetchFeed(endpoint, status, limit)
+      const payload = await fetchFeed(endpoint, status, limit, proxyMode, proxyPrefix)
       const cards = payload.items
-        .map((item) => {
-          const coverUrl = resolveWidgetCoverUrl(item.coverUrl, proxyMode, proxyPrefix)
-          return `
+        .map(
+          (item) => `
             <article class="widget-card widget-card-compact">
-              ${coverUrl ? `<img src="${coverUrl}" alt="${item.title}" />` : '<div class="widget-placeholder"></div>'}
+              ${item.coverUrl ? `<img src="${item.coverUrl}" alt="${item.title}" />` : '<div class="widget-placeholder"></div>'}
               <div class="widget-meta">
                 <span class="widget-status">${item.status}</span>
                 <h3>${item.title}</h3>
@@ -55,8 +54,8 @@ export function createWatchLogWidgetElement(deps: WidgetDependencies = {}) {
                 <p>${item.watchedAt || '等待时间记录'}</p>
               </div>
             </article>
-          `
-        })
+          `,
+        )
         .join('')
 
       this.#shadow.innerHTML = this.renderShell(

@@ -10,6 +10,9 @@ import { createWatchLogsRepository } from '../../../server/database/repositories
 import { createRecordsQueryService } from '../../../server/services/query/records-query'
 
 const databases: Array<{ close: () => void }> = []
+const proxyPrefix = 'https://images.weserv.nl/?url='
+const firstCover = 'https://img2.doubanio.com/example-1.jpg'
+const secondCover = 'https://img2.doubanio.com/example-2.jpg'
 
 afterEach(() => {
   while (databases.length > 0) {
@@ -18,7 +21,7 @@ afterEach(() => {
 })
 
 describe('public read api helpers', () => {
-  it('returns records list, details, stats, and widget feed', async () => {
+  it('returns records list, details, stats, and widget feed with proxy-aware images and pagination metadata', async () => {
     const database = createDatabaseClient(':memory:')
     databases.push(database)
 
@@ -36,11 +39,29 @@ describe('public read api helpers', () => {
       genres: ['剧情'],
       directors: ['金性洙'],
       actors: ['黄政民', '郑雨盛'],
-      coverUrl: 'https://img2.doubanio.com/example.jpg',
+      coverUrl: firstCover,
       doubanUrl: 'https://movie.douban.com/subject/35712804/',
       ratingAverage: 8.8,
       ratingCount: 307074,
       pubdates: ['2023-11-22(韩国)'],
+    })
+
+    subjects.upsert({
+      id: 'douban:subject:3011091',
+      source: 'douban',
+      sourceSubjectId: '3011091',
+      title: '让子弹飞',
+      originalTitle: null,
+      year: '2010',
+      subtype: 'movie',
+      genres: ['剧情'],
+      directors: ['姜文'],
+      actors: ['姜文', '葛优'],
+      coverUrl: secondCover,
+      doubanUrl: 'https://movie.douban.com/subject/3011091/',
+      ratingAverage: 9.0,
+      ratingCount: 1000000,
+      pubdates: ['2010-12-16(中国大陆)'],
     })
 
     watchLogs.upsert({
@@ -57,25 +78,64 @@ describe('public read api helpers', () => {
       updatedAt: '2026-01-28 19:51:19',
     })
 
+    watchLogs.upsert({
+      id: 'douban:interest:4496137805',
+      source: 'douban',
+      sourceInterestId: '4496137805',
+      subjectId: 'douban:subject:3011091',
+      status: 'done',
+      rating: 5,
+      comment: '',
+      watchedAt: '2025-12-18 20:00:00',
+      isPrivate: false,
+      createdAt: '2025-12-18 20:00:00',
+      updatedAt: '2025-12-18 20:00:00',
+    })
+
     const queryService = createRecordsQueryService(database)
 
     const records = await getRecordsResponse(
-      { status: 'done', page: 1, limit: 10 },
-      { queryService },
+      { status: 'done', page: 2, limit: 1 },
+      {
+        queryService,
+        imageProxy: {
+          mode: 'prefix',
+          prefix: proxyPrefix,
+        },
+      },
     )
-    const detail = await getRecordByIdResponse('douban:subject:35712804', { queryService })
+    const detail = await getRecordByIdResponse('douban:subject:35712804', {
+      queryService,
+      imageProxy: {
+        mode: 'prefix',
+        prefix: proxyPrefix,
+      },
+    })
     const stats = await getStatsResponse({ queryService })
-    const widget = await getWidgetResponse({ status: 'done', limit: 1 }, { queryService })
+    const widget = await getWidgetResponse(
+      { status: 'done', limit: 1 },
+      {
+        queryService,
+        imageProxy: {
+          mode: 'relay',
+          relayPath: 'https://watchlog.example.com/api/image',
+        },
+      },
+    )
 
     expect(records).toMatchObject({
-      total: 1,
-      page: 1,
-      limit: 10,
+      total: 2,
+      page: 2,
+      limit: 1,
+      totalPages: 2,
+      hasPrev: true,
+      hasNext: false,
       items: [
         {
-          subjectId: 'douban:subject:35712804',
-          title: '首尔之春',
+          subjectId: 'douban:subject:3011091',
+          title: '让子弹飞',
           status: 'done',
+          coverUrl: `${proxyPrefix}${encodeURIComponent(secondCover)}`,
         },
       ],
     })
@@ -83,6 +143,7 @@ describe('public read api helpers', () => {
       subject: {
         id: 'douban:subject:35712804',
         title: '首尔之春',
+        coverUrl: `${proxyPrefix}${encodeURIComponent(firstCover)}`,
       },
       watchLogs: [
         {
@@ -92,10 +153,10 @@ describe('public read api helpers', () => {
       ],
     })
     expect(stats).toMatchObject({
-      totalSubjects: 1,
-      totalLogs: 1,
+      totalSubjects: 2,
+      totalLogs: 2,
       countsByStatus: {
-        done: 1,
+        done: 2,
         doing: 0,
         mark: 0,
       },
@@ -105,6 +166,7 @@ describe('public read api helpers', () => {
         {
           subjectId: 'douban:subject:35712804',
           title: '首尔之春',
+          coverUrl: `https://watchlog.example.com/api/image?url=${encodeURIComponent(firstCover)}`,
         },
       ],
     })

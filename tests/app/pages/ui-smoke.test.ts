@@ -4,6 +4,7 @@ import { describe, expect, it } from 'vitest'
 
 import HomeOverview from '../../../app/components/home/HomeOverview.vue'
 import RecordGrid from '../../../app/components/records/RecordGrid.vue'
+import RecordPagination from '../../../app/components/records/RecordPagination.vue'
 
 describe('watchlog ui smoke', () => {
   it('renders the home overview hero copy', () => {
@@ -23,7 +24,7 @@ describe('watchlog ui smoke', () => {
     expect(wrapper.text()).toContain('128')
   })
 
-  it('renders record cards and empty state', () => {
+  it('renders responsive record cards and empty state', () => {
     const populated = mount(RecordGrid, {
       props: {
         items: [
@@ -50,7 +51,26 @@ describe('watchlog ui smoke', () => {
 
     expect(populated.text()).toContain('首尔之春')
     expect(populated.find('.watchlog-record-grid-compact').exists()).toBe(true)
+    expect(populated.find('.watchlog-record-grid-responsive').exists()).toBe(true)
     expect(populated.find('.watchlog-record-card-compact').exists()).toBe(true)
     expect(empty.text()).toContain('还没有可展示的记录')
+  })
+
+  it('renders pagination controls and emits page changes', async () => {
+    const wrapper = mount(RecordPagination, {
+      props: {
+        page: 3,
+        totalPages: 8,
+      },
+    })
+
+    expect(wrapper.find('.watchlog-pagination').exists()).toBe(true)
+    expect(wrapper.text()).toContain('上一页')
+    expect(wrapper.text()).toContain('下一页')
+    expect(wrapper.text()).toContain('3')
+
+    await wrapper.get('[data-page="4"]').trigger('click')
+
+    expect(wrapper.emitted('select')).toEqual([[4]])
   })
 })

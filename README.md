@@ -80,7 +80,7 @@ WatchLog 由两部分组成：
 | 变量 | 默认值 | 说明 |
 | --- | --- | --- |
 | `NUXT_IMAGE_PROXY_MODE` | `relay` | 服务端默认图片代理模式 |
-| `NUXT_IMAGE_PROXY_PREFIX` | 空 | `prefix` 模式的代理前缀，格式为 `PREFIX + encodeURIComponent(url)` |
+| `NUXT_IMAGE_PROXY_PREFIX` | 空 | `prefix` 模式的代理前缀 |
 | `NUXT_PUBLIC_IMAGE_PROXY_MODE` | `relay` | 前端默认图片代理模式；Widget 可单独覆盖 |
 
 ## 图片代理策略
@@ -153,8 +153,8 @@ pnpm --filter ./packages/widget build
 | `status` | 过滤状态，支持 `done` / `doing` / `mark` | `done` |
 | `limit` | 展示条目数量 | `6` |
 | `layout` | 布局模式，当前支持 `grid` | `grid` |
-| `proxy-mode` | 覆盖默认图片代理模式 | `relay` |
-| `proxy-prefix` | 覆盖默认代理前缀 | `https://imageproxy.example/?url=` |
+| `proxy-mode` | 覆盖默认图片代理模式；不填时沿用 WatchLog 服务端默认模式 | `relay` |
+| `proxy-prefix` | 覆盖默认代理前缀；只填写前缀即可 | `https://imageproxy.example/?url=` |
 
 ### 嵌入示例
 
