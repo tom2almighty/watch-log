@@ -16,6 +16,6 @@ FROM node:24-alpine AS runtime
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=build /app/.output ./.output
-COPY --from=build /app/packages/widget/dist ./public/widget
+COPY --from=build /app/packages/widget/dist ./.output/public/widget
 EXPOSE 3000
 CMD ["node", ".output/server/index.mjs"]
