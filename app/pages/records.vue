@@ -2,6 +2,7 @@
 import AppShell from '~/components/app/AppShell.vue'
 import RecordGrid from '~/components/records/RecordGrid.vue'
 import RecordPagination from '~/components/records/RecordPagination.vue'
+import { ALIGNED_RECORD_GRID_LIMIT } from '~/constants/record-grid'
 import type { WatchStatus } from '../../shared/types/watchlog'
 
 const watchlogApi = useWatchlogApi()
@@ -41,7 +42,7 @@ const { data: records } = await useAsyncData(
     watchlogApi.fetchRecords({
       status: selectedStatus.value,
       page: currentPage.value,
-      limit: 12,
+      limit: ALIGNED_RECORD_GRID_LIMIT,
     }),
   {
     watch: [selectedStatus, currentPage],

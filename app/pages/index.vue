@@ -2,12 +2,13 @@
 import AppShell from '~/components/app/AppShell.vue'
 import HomeOverview from '~/components/home/HomeOverview.vue'
 import RecordGrid from '~/components/records/RecordGrid.vue'
+import { ALIGNED_RECORD_GRID_LIMIT } from '~/constants/record-grid'
 
 const watchlogApi = useWatchlogApi()
 
 const { data: stats } = await useAsyncData('watchlog-stats', () => watchlogApi.fetchStats())
 const { data: recentRecords } = await useAsyncData('watchlog-recent-records', () =>
-  watchlogApi.fetchRecords({ status: 'done', page: 1, limit: 6 }),
+  watchlogApi.fetchRecords({ status: 'done', page: 1, limit: ALIGNED_RECORD_GRID_LIMIT }),
 )
 
 const statsSummary = computed(() =>

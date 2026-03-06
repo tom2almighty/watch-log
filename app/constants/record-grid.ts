@@ -1,0 +1,1 @@
+export const ALIGNED_RECORD_GRID_LIMIT = 12
