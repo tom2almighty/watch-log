@@ -1,6 +1,6 @@
 services:
   watchlog:
-    build: .
+    image: tom2al/watchlog:latest
     ports:
       - "3000:3000"
     env_file:
