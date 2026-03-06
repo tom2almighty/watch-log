@@ -49,6 +49,16 @@ const schemaStatements = [
       PRIMARY KEY (source, status)
     )
   `,
+  `
+    CREATE TABLE IF NOT EXISTS sync_runs (
+      id TEXT PRIMARY KEY,
+      source TEXT NOT NULL,
+      status TEXT NOT NULL,
+      started_at TEXT NOT NULL,
+      finished_at TEXT,
+      message TEXT
+    )
+  `,
 ]
 
 export function bootstrapDatabase(database: Database) {

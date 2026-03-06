@@ -1,8 +1,21 @@
 import { defineNuxtConfig } from 'nuxt/config'
 
+const enableSyncCron = process.env.NUXT_ENABLE_SYNC_CRON === 'true'
+const syncCronExpression = process.env.NUXT_SYNC_CRON_EXPRESSION || '0 */6 * * *'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  nitro: {
+    experimental: {
+      tasks: true,
+    },
+    scheduledTasks: enableSyncCron
+      ? {
+          [syncCronExpression]: ['sync:watchlog'],
+        }
+      : {},
+  },
   runtimeConfig: {
     doubanApiKey: '',
     doubanApiBase: 'https://frodo.douban.com/api/v2',
